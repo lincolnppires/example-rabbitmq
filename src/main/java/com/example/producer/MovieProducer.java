@@ -39,7 +39,7 @@ public class MovieProducer {
 		rabbitTemplate.convertAndSend(moviesExchange, "movie.drama", movieDrama);
 	}
 	
-	@Scheduled(fixedRate = 500)
+	@Scheduled(fixedRate = 5000)
 	public void sendMessageThriller() {		
 		var movieThriller = new Movie();
 		movieThriller.setName("Movie" + countThriller++);

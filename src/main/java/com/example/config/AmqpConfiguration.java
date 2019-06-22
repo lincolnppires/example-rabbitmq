@@ -34,17 +34,23 @@ public class AmqpConfiguration {
 		
 		@Bean
 		public Queue movieQueueDrama() {
-			return QueueBuilder.durable(movieDramaQueue).build();
+			return QueueBuilder.durable(movieDramaQueue)
+					.withArgument("x-dead-letter-exchange", moviesExchangeDlx)
+					.build();
 		}
 		
 		@Bean
 		public Queue movieQueueThriller() {
-			return QueueBuilder.durable(movieThrillerQueue).build();
+			return QueueBuilder.durable(movieThrillerQueue)
+					.withArgument("x-dead-letter-exchange", moviesExchangeDlx)
+					.build();
 		}
 		
 		@Bean
 		public Queue movieQueueAll() {
-			return QueueBuilder.durable(movieAllQueue).build();
+			return QueueBuilder.durable(movieAllQueue)
+					.withArgument("x-dead-letter-exchange", moviesExchangeDlx)
+					.build();
 		}
 		
 		@Bean
