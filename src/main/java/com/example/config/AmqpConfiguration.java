@@ -29,8 +29,8 @@ public class AmqpConfiguration {
 		
 		@Value("${conf-queue-exchange.exchange-movies-dlx}")
 		private String moviesExchangeDlx;		
-		@Value("${conf-queue-exchange.queue-movie-dlx}")
-		private String movieDlxQueue;
+		@Value("${conf-queue-exchange.queue-movie-dlq}")
+		private String movieDlqQueue;
 		
 		@Bean
 		public Queue movieQueueDrama() {
@@ -54,8 +54,8 @@ public class AmqpConfiguration {
 		}
 		
 		@Bean
-		public Queue movieQueueDlx() {
-			return QueueBuilder.durable(movieDlxQueue).build();
+		public Queue movieQueueDlq() {
+			return QueueBuilder.durable(movieDlqQueue).build();
 		}
 		
 		@Bean
@@ -98,7 +98,7 @@ public class AmqpConfiguration {
 		@Bean
         public Binding movieDlxBinding() {
             return BindingBuilder
-                .bind(movieQueueDlx())
+                .bind(movieQueueDlq())
                 .to(moviesDlxExchange())
                 .with("")
                 .noargs();        
