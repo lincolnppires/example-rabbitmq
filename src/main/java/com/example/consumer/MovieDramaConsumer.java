@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MovieDramaConsumer {
 
-	@RabbitListener(queues = "${conf-queue-exchange.queue-movie-drama}")
+	//@RabbitListener(queues = "${conf-queue-exchange.queue-movie-drama}")
 	public void listen(String message) {
 
 		log.info("Message {}", message );
