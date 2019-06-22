@@ -19,13 +19,18 @@ public class AmqpConfiguration {
 		
 		@Value("${conf-queue-exchange.exchange-movies}")
 		private String moviesExchange;
-		
 		@Value("${conf-queue-exchange.queue-movie-drama}")
 		private String movieDramaQueue;		
 		@Value("${conf-queue-exchange.queue-movie-thriller}")
 		private String movieThrillerQueue;
 		@Value("${conf-queue-exchange.queue-movie-all}")
 		private String movieAllQueue;
+		
+		
+		@Value("${conf-queue-exchange.exchange-movies-dlx}")
+		private String moviesExchangeDlx;		
+		@Value("${conf-queue-exchange.queue-movie-dlx}")
+		private String movieDlxQueue;
 		
 		@Bean
 		public Queue movieQueueDrama() {
@@ -43,8 +48,18 @@ public class AmqpConfiguration {
 		}
 		
 		@Bean
+		public Queue movieQueueDlx() {
+			return QueueBuilder.durable(movieDlxQueue).build();
+		}
+		
+		@Bean
         public Exchange moviesExchange() {
 			return ExchangeBuilder.topicExchange(moviesExchange).durable(true).build();
+        }
+		
+		@Bean
+        public Exchange moviesDlxExchange() {
+			return ExchangeBuilder.fanoutExchange(moviesExchangeDlx).durable(true).build();
         }
 
 		@Bean
@@ -71,6 +86,15 @@ public class AmqpConfiguration {
                 .bind(movieQueueAll())
                 .to(moviesExchange())
                 .with("movie.#")
+                .noargs();        
+		}
+		
+		@Bean
+        public Binding movieDlxBinding() {
+            return BindingBuilder
+                .bind(movieQueueDlx())
+                .to(moviesDlxExchange())
+                .with("")
                 .noargs();        
 		}
 

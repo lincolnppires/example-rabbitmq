@@ -9,10 +9,12 @@ spring:
     
     
 conf-queue-exchange: 
-  queue-movie-drama: exemplo-spring.movie-drama
-  queue-movie-thriller: exemplo-spring.movie-thriller
-  queue-movie-all: exemplo-spring.movie-all            
-  exchange-movies: exemplo-spring.movies
+  queue-movie-drama: q.movie-drama
+  queue-movie-thriller: q.movie-thriller
+  queue-movie-all: q.movie-all
+  queue-movie-dlx: q.movie.dlx            
+  exchange-movies: x.movies
+  exchange-movies-dlx: x.movies.dlx
 
  
   
