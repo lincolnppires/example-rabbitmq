@@ -18,25 +18,59 @@ public class AmqpConfiguration {
 		
 		@Value("${conf-queue-exchange.exchange-movies}")
 		private String moviesExchange;
+		
 		@Value("${conf-queue-exchange.queue-movie-drama}")
-		private String movieDramaQueue;
+		private String movieDramaQueue;		
+		@Value("${conf-queue-exchange.queue-movie-thriller}")
+		private String movieThrillerQueue;
+		@Value("${conf-queue-exchange.queue-movie-all}")
+		private String movieAllQueue;
+		
 		
 		@Bean
-		public Queue movieQueue() {
+		public Queue movieQueueDrama() {
 			return QueueBuilder.durable(movieDramaQueue).build();
 		}
 		
 		@Bean
+		public Queue movieQueueThriller() {
+			return QueueBuilder.durable(movieThrillerQueue).build();
+		}
+		
+		@Bean
+		public Queue movieQueueAll() {
+			return QueueBuilder.durable(movieAllQueue).build();
+		}
+		
+		@Bean
         public Exchange moviesExchange() {
-            return ExchangeBuilder.fanoutExchange(moviesExchange).durable(true).build();
+			return ExchangeBuilder.topicExchange(moviesExchange).durable(true).build();
         }
 
 		@Bean
-        public Binding purchaseBindingUpdate() {
+        public Binding movieDramaBinding() {
             return BindingBuilder
-                .bind(movieQueue())
+                .bind(movieQueueDrama())
                 .to(moviesExchange())
-                .with("")
+                .with("movie.drama")
+                .noargs();        
+		}
+		
+		@Bean
+        public Binding movieThrillerBinding() {
+            return BindingBuilder
+                .bind(movieQueueThriller())
+                .to(moviesExchange())
+                .with("movie.thriller")
+                .noargs();        
+		}
+		
+		@Bean
+        public Binding movieAllBinding() {
+            return BindingBuilder
+                .bind(movieQueueAll())
+                .to(moviesExchange())
+                .with("movie.#")
                 .noargs();        
 		}
 
