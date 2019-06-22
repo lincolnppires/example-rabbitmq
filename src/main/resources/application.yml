@@ -1,1 +1,17 @@
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    virtual-host: /
+    username: guest
+    password: guest
+    
+    
+    
+conf-queue-exchange: 
+  queue-movie-drama: exemplo-spring.movie-drama
+  queue-movie-thriller: exemplo-spring.movie-thriller            
+  exchange-movies: exemplo-spring.movies
 
+ 
+  
