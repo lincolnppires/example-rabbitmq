@@ -17,7 +17,8 @@ conf-queue-exchange:
   queue-movie-drama: q.movie-drama
   queue-movie-thriller: q.movie-thriller
   queue-movie-all: q.movie-all
-  queue-movie-dlq: q.movie.dlq            
+  queue-movie-dlq: q.movie.dlq
+  queue-no-consumer-available: q.no-consumer-available            
   exchange-movies: x.movies
   exchange-movies-dlx: x.movies.dlx
 

@@ -26,11 +26,13 @@ public class AmqpConfiguration {
 		@Value("${conf-queue-exchange.queue-movie-all}")
 		private String movieAllQueue;
 		
-		
 		@Value("${conf-queue-exchange.exchange-movies-dlx}")
 		private String moviesExchangeDlx;		
 		@Value("${conf-queue-exchange.queue-movie-dlq}")
 		private String movieDlqQueue;
+		
+		@Value("${conf-queue-exchange.queue-no-consumer-available}")
+		private String noConsumerAvailableQueue;
 		
 		@Bean
 		public Queue movieQueueDrama() {
@@ -49,6 +51,14 @@ public class AmqpConfiguration {
 		@Bean
 		public Queue movieQueueAll() {
 			return QueueBuilder.durable(movieAllQueue)
+					.withArgument("x-dead-letter-exchange", moviesExchangeDlx)
+					.build();
+		}
+		
+		@Bean
+		public Queue noConsumerQueue() {
+			return QueueBuilder.durable(noConsumerAvailableQueue)
+					.withArgument("x-message-ttl", 1000)
 					.withArgument("x-dead-letter-exchange", moviesExchangeDlx)
 					.build();
 		}

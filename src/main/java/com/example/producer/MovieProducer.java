@@ -39,7 +39,7 @@ public class MovieProducer {
 		rabbitTemplate.convertAndSend(moviesExchange, "movie.drama", movieDrama);
 	}
 	
-	@Scheduled(fixedRate = 500)
+	//@Scheduled(fixedRate = 500)
 	public void sendMessageThriller() {		
 		var movieThriller = new Movie();
 		movieThriller.setName("Movie" + countThriller++);
@@ -48,6 +48,12 @@ public class MovieProducer {
 		log.info("Send movie thriller {}", countDrama);
 		rabbitTemplate.convertAndSend(moviesExchange, "movie.thriller", movieThriller);
 	}
+	
+	@Scheduled(fixedRate = 500)
+	public void sendMessageQueueNoConsumer() {		
+			log.info("Send msg to queue without consumer");
+			rabbitTemplate.convertAndSend("q.no-consumer-available", "Message" + ThreadLocalRandom.current().nextInt(1000));
+		}
 	
 	
 	
