@@ -5,6 +5,11 @@ spring:
     virtual-host: /
     username: guest
     password: guest
+    listener:
+      direct:
+        acknowledge-mode: manual
+      simple:
+        acknowledge-mode: manual 
     
     
     

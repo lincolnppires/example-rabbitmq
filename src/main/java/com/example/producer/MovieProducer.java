@@ -29,7 +29,7 @@ public class MovieProducer {
 		this.rabbitTemplate = rabbitTemplate;
 	}
 	
-	@Scheduled(fixedRate = 5000)
+	//@Scheduled(fixedRate = 5000)
 	public void sendMessageDrama() {		
 		var movieDrama = new Movie();
 		movieDrama.setName("Movie" + countDrama++);
@@ -39,11 +39,11 @@ public class MovieProducer {
 		rabbitTemplate.convertAndSend(moviesExchange, "movie.drama", movieDrama);
 	}
 	
-	@Scheduled(fixedRate = 5000)
+	@Scheduled(fixedRate = 500)
 	public void sendMessageThriller() {		
 		var movieThriller = new Movie();
 		movieThriller.setName("Movie" + countThriller++);
-		movieThriller.setGenre(Genre.DRAMA);
+		movieThriller.setGenre(Genre.THRILLER);
 		movieThriller.setYear(ThreadLocalRandom.current().nextInt(1900, 2020));
 		log.info("Send movie thriller {}", countDrama);
 		rabbitTemplate.convertAndSend(moviesExchange, "movie.thriller", movieThriller);
