@@ -93,6 +93,60 @@ public class AmqpConfigurationRetryDirectExchange {
 					.build();
 		}
 		
+		@Bean
+        public Binding movieDramaWorkBinding() {
+            return BindingBuilder
+                .bind(movieDramaWork())
+                .to(moviesExchangeWork())
+                .with("movie.drama.work")
+                .noargs();        
+		}
+		
+		@Bean
+        public Binding movieDramaWaitBinding() {
+            return BindingBuilder
+                .bind(movieDramaWait())
+                .to(moviesExchangeWait())
+                .with("movie.drama.wait")
+                .noargs();        
+		}
+		
+		@Bean
+        public Binding movieDramaDeadBinding() {
+            return BindingBuilder
+                .bind(movieDramaDead())
+                .to(moviesExchangeDead())
+                .with("movie.drama.dead")
+                .noargs();        
+		}
+		
+		@Bean
+        public Binding movieThrillerWorkBinding() {
+            return BindingBuilder
+                .bind(movieThrillerWork())
+                .to(moviesExchangeWork())
+                .with("movie.thriller.work")
+                .noargs();        
+		}
+		
+		@Bean
+        public Binding movieThrillerWaitBinding() {
+            return BindingBuilder
+                .bind(movieThrillerWait())
+                .to(moviesExchangeWait())
+                .with("movie.thriller.wait")
+                .noargs();        
+		}
+		
+		@Bean
+        public Binding movieThrillerDeadBinding() {
+            return BindingBuilder
+                .bind(movieThrillerDead())
+                .to(moviesExchangeDead())
+                .with("movie.thriller.dead")
+                .noargs();        
+		}
+		
 		
 		
 		
