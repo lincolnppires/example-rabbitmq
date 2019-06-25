@@ -63,8 +63,10 @@ public class AmqpConfigurationRetryDirectExchange {
 		@Bean
 		public Queue movieDramaWait() {
 			return QueueBuilder.durable(movieDramaWaitQueue)
+					.withArgument("x-message-ttl", 3000)
 					.withArgument("x-dead-letter-exchange", moviesExchangeWork)
 					.build();
+			
 		}
 		
 		@Bean
@@ -83,7 +85,8 @@ public class AmqpConfigurationRetryDirectExchange {
 		@Bean
 		public Queue movieThrillerWait() {
 			return QueueBuilder.durable(movieThrillerWaitQueue)
-					.withArgument("x-dead-letter-exchange", moviesExchangeWork)
+					.withArgument("x-message-ttl", 3000)
+					.withArgument("x-dead-letter-exchange", moviesExchangeWork)					
 					.build();
 		}
 		
