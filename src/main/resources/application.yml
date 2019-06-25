@@ -22,5 +22,11 @@ conf-queue-exchange:
   exchange-movies: x.movies
   exchange-movies-dlx: x.movies.dlx
 
+conf-queue-exchange-direct-retry: 
+  exchange-movies-work: x.movies.work
+  exchange-movies-wait: x.movies.wait
+  exchange-movies-dead: x.movies.dead
+  
+    
  
   

@@ -49,7 +49,7 @@ public class MovieProducer {
 		rabbitTemplate.convertAndSend(moviesExchange, "movie.thriller", movieThriller);
 	}
 	
-	@Scheduled(fixedRate = 500)
+	//@Scheduled(fixedRate = 500)
 	public void sendMessageQueueNoConsumer() {		
 			log.info("Send msg to queue without consumer");
 			rabbitTemplate.convertAndSend("q.no-consumer-available", "Message" + ThreadLocalRandom.current().nextInt(1000));
