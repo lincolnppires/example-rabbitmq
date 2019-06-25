@@ -26,7 +26,12 @@ conf-queue-exchange-direct-retry:
   exchange-movies-work: x.movies.work
   exchange-movies-wait: x.movies.wait
   exchange-movies-dead: x.movies.dead
-  
+  queue-movie-drama-work: q.movie-drama.work
+  queue-movie-drama-wait: q.movie-drama.wait
+  queue-movie-drama-dead: q.movie-drama.dead
+  queue-movie-thriller-work: q.movie-thriller.work
+  queue-movie-thriller-wait: q.movie-thriller.wait
+  queue-movie-thriller-dead: q.movie-thriller.dead
     
  
   

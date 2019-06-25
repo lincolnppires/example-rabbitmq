@@ -23,6 +23,20 @@ public class AmqpConfigurationRetryDirectExchange {
 		private String moviesExchangeWait;
 		@Value("${conf-queue-exchange-direct-retry.exchange-movies-dead}")
 		private String moviesExchangeDead;
+		
+		@Value("${conf-queue-exchange-direct-retry.queue-movie-drama-work}")
+		private String movieDramaWorkQueue;
+		@Value("${conf-queue-exchange-direct-retry.queue-movie-drama-wait}")
+		private String movieDramaWaitQueue;
+		@Value("${conf-queue-exchange-direct-retry.queue-movie-drama-dead}")
+		private String movieDramaDeadQueue;
+		
+		@Value("${conf-queue-exchange-direct-retry.queue-movie-thriller-work}")
+		private String movieThrillerWorkQueue;
+		@Value("${conf-queue-exchange-direct-retry.queue-movie-thriller-wait}")
+		private String movieThrillerWaitQueue;
+		@Value("${conf-queue-exchange-direct-retry.queue-movie-thriller-dead}")
+		private String movieThrillerDeadQueue;
 			
 		@Bean
         public Exchange moviesExchangeWork() {
@@ -39,6 +53,49 @@ public class AmqpConfigurationRetryDirectExchange {
 			return ExchangeBuilder.directExchange(moviesExchangeDead).durable(true).build();
         }
 
+		@Bean
+		public Queue movieDramaWork() {
+			return QueueBuilder.durable(movieDramaWorkQueue)
+					.withArgument("x-dead-letter-exchange", moviesExchangeWait)
+					.build();
+		}
+		
+		@Bean
+		public Queue movieDramaWait() {
+			return QueueBuilder.durable(movieDramaWaitQueue)
+					.withArgument("x-dead-letter-exchange", moviesExchangeWork)
+					.build();
+		}
+		
+		@Bean
+		public Queue movieDramaDead() {
+			return QueueBuilder.durable(movieDramaDeadQueue)
+					.build();
+		}
+		
+		@Bean
+		public Queue movieThrillerWork() {
+			return QueueBuilder.durable(movieThrillerWorkQueue)
+					.withArgument("x-dead-letter-exchange", moviesExchangeWait)
+					.build();
+		}
+		
+		@Bean
+		public Queue movieThrillerWait() {
+			return QueueBuilder.durable(movieThrillerWaitQueue)
+					.withArgument("x-dead-letter-exchange", moviesExchangeWork)
+					.build();
+		}
+		
+		@Bean
+		public Queue movieThrillerDead() {
+			return QueueBuilder.durable(movieThrillerDeadQueue)
+					.build();
+		}
+		
+		
+		
+		
 	}
 	
 	
